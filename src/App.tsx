@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { withFocusable } from '@noriginmedia/react-spatial-navigation'
-import { Route, Router } from 'wouter'
+import { Route, Router, useLocation } from 'wouter'
 
 import { Home } from './home/Home'
 import { Radio } from './radio/Radio'
@@ -12,9 +12,11 @@ import { Settings } from './settings/Settings'
 export const apps = { Radio, Podcasts, UIExamples, Settings }
 
 // TODO: rename
-export const App = withFocusable()(({ setFocus, focusKey }) => {
-  // needed
-  React.useEffect(() => setFocus(focusKey), [])
+export const App = withFocusable()(({ setFocus }) => {
+  const [loc] = useLocation()
+
+  // focus on mount & also when navigation changes
+  React.useEffect(() => setFocus(), [loc])
 
   // has to be on window
   React.useEffect(() => {
