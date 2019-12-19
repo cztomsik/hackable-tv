@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "HOT=1 node -r ts-node/register -r graffiti/lib/register ./src/main"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@noriginmedia/react-spatial-navigation": "^2.9.1",
+    "axios": "^0.19.0",
     "glob": "^7.1.6",
     "graffiti": "github:cztomsik/graffiti",
     "react": "^16.12.0",

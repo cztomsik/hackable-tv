@@ -4,19 +4,20 @@ import { Route, Router, useLocation } from 'wouter'
 
 import { Home } from './home/Home'
 import { Radio } from './radio/Radio'
-import { Podcasts } from './podcasts/Podcasts'
 import { UIExamples } from './ui-examples/UIExamples'
 import { Settings } from './settings/Settings'
 
 // rendered in Home
-export const apps = { Radio, Podcasts, UIExamples, Settings }
+export const apps = { Radio, UIExamples, Settings }
 
 // TODO: rename
 export const App = withFocusable()(({ setFocus }) => {
   const [loc] = useLocation()
 
   // focus on mount & also when navigation changes
-  React.useEffect(() => setFocus(), [loc])
+  React.useEffect(() => {
+    setTimeout(setFocus)
+  }, [loc])
 
   // has to be on window
   React.useEffect(() => {

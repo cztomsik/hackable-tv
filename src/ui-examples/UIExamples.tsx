@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Route, useLocation, useRouter } from 'wouter'
-import { Button, Heading } from '../ui'
+import { Route, Link } from 'wouter'
+import { Heading, Button, Modal } from '../ui'
 
 export const UIExamples = () => (
   <>
@@ -10,8 +10,6 @@ export const UIExamples = () => (
 )
 
 const Listing = () => {
-  const [, navigate] = useLocation()
-
   return (
     <div>
       <Heading>UI Examples</Heading>
@@ -19,11 +17,28 @@ const Listing = () => {
       {Object.keys(exports)
         .slice(1)
         .map(k => (
-          <Button onEnterPress={() => navigate('/' + k)}>{k}</Button>
+          <Link to={`/${k}`}>
+            <Button>{k}</Button>
+          </Link>
         ))}
     </div>
   )
 }
+
+export const ModalExample = () => (
+  <div>
+    <Modal>
+      <Heading>Foo</Heading>
+
+      <div style={{ width: 250 }}>
+        <Button>Do it</Button>
+        <Button>Cancel</Button>
+        <Button>Foo</Button>
+        <Button>Bar</Button>
+      </div>
+    </Modal>
+  </div>
+)
 
 export const BasicExample = () => (
   <div>
@@ -33,8 +48,21 @@ export const BasicExample = () => (
   </div>
 )
 
-export const ButtonExample = () => (
-  <div>
-    <Button>Hello</Button>
-  </div>
-)
+export const ButtonExample = () => {
+  const [count, setCount] = React.useState(1)
+  const dec = () => setCount(count - 1)
+  const inc = () => setCount(count + 1)
+
+  return (
+    <div>
+      <Heading>{count}</Heading>
+
+      <Button onPress={dec}>--</Button>
+      <Button onPress={inc}>++</Button>
+
+      <Link to='/'>
+        <Button>LinkButton</Button>
+      </Link>
+    </div>
+  )
+}

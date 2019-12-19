@@ -1,6 +1,5 @@
 # Hackable TV
-
-[!screenshot]()
+![hackable-tv](https://user-images.githubusercontent.com/3526922/71194382-1ae1e880-228c-11ea-9c06-967138d4590f.gif)
 
 A hobby project to explore if it is possible to do a platform like [Kodi](https://github.com/xbmc/xbmc) or [Android TV](https://en.wikipedia.org/wiki/Android_TV) which is:
 
@@ -13,6 +12,8 @@ The whole project is based around [graffiti](https://github.com/cztomsik/graffit
 
 ## Try it
 ```
+# BTW: it works on macos too, just brew install respective deps
+
 # you might need
 sudo apt install ffmpeg  # for radio
 sudo apt install dosbox  # for iarchive
@@ -23,16 +24,23 @@ npm i
 npm run dev
 ```
 
+## Controls
+- arrows, `Enter` & `Esc` for navigation
+- `h` for quickly going to Home
+
 ## Status
 Early PoC, feel free to open feature requests, ask questions and/or discuss the overall design, nothing is set in stone yet.
 
 - [x] home with "app" selection
-- [x] play internet radios
 - [x] basic navigation
-- [ ] play podcasts
+- [x] play internet radios
+- [ ] now playing at Home
 - [ ] ?
 - [ ] manage samba, ssh, vnc
 - [ ] real video player instead of spawning ffplay
 - [ ] app packaging/loading
 - [ ] consider translations?
 - [ ] lots of other things
+
+## Custom extensions
+Right now, you need to literally fork it & hack whatever you want. In future, I'd like to have some "app" extension model but that's still far away now. Be prepared for weird issues, some things might not work at all so just take it easy :-)

@@ -1,3 +1,4 @@
 export * from './Heading'
-export * from './Grid'
 export * from './Button'
+export * from './Grid'
+export * from './Modal'
