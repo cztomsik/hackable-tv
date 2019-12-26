@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "HOT=1 node -r ts-node/register -r graffiti/lib/register ./src/main"
+    "dev": "HOT=1 node -r ts-node/register/transpile-only -r graffiti/lib/register ./src/main"
   },
   "author": "",
   "license": "ISC",

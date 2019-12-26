@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { withFocusable } from '@noriginmedia/react-spatial-navigation'
+import { Focusable } from '../ui'
 
 // TODO: box-shadow
 // TODO: text-align: center (graffiti) & remove unnecessary <span>
-export const Button = ({ children, href = '', focused = false, onPress = () => href && location.assign(href) }) => (
-  <Focusable onEnterPress={onPress}>
+export const Button = ({ children, href = '', onPress = () => href && location.assign(href) }) => (
+  <Focusable onPress={onPress}>
     {focused => {
       const s = focused ? enlarged : base
 
@@ -18,10 +18,6 @@ export const Button = ({ children, href = '', focused = false, onPress = () => h
     }}
   </Focusable>
 )
-
-// this is ew (HoC to render-prop)
-// TODO: make own focusable comp, hook-based preferrably
-const Focusable = withFocusable()(({ children, focused }) => children(focused))
 
 const base = {
   wrapper: { padding: 5, paddingLeft: 15, paddingRight: 15 },

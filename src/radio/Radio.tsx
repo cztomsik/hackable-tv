@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { withFocusable } from '@noriginmedia/react-spatial-navigation'
-import { Heading, Button } from '../ui'
+import { Heading, Shelf, ShelfItem, Image } from '../ui'
 import { mediaPlayer } from '../mediaPlayer'
 import axios from 'axios'
 
@@ -26,48 +25,32 @@ export const Radio = () => {
     <div>
       <Heading>Radio</Heading>
 
-      <Shelf
-        title="Favorites"
-        data={favorites}
-        renderItem={it => <ShelfItem title={it.name} onEnterPress={() => mediaPlayer.play(it.url)} />}
-      />
+      <Shelf title="Favorites">
+        {favorites.map(it => (
+          <ShelfItem title={it.name} onPress={() => mediaPlayer.play(it.url)} width={120} height={120}>
+            <Image src="" width="100%" height="100%" />
+          </ShelfItem>
+        ))}
+      </Shelf>
 
-      <Shelf
-        title="Rock"
-        data={rockStations}
-        renderItem={it => <ShelfItem title={it.name} onEnterPress={() => mediaPlayer.play(it.url)} />}
-      />
+      <Shelf title="Rock">
+        {rockStations.map(it => (
+          <ShelfItem title={it.name} onPress={() => mediaPlayer.play(it.url)} width={120} height={120}>
+            <Image src="" width="100%" height="100%" />
+          </ShelfItem>
+        ))}
+      </Shelf>
 
-      <Shelf
-        title="Synthwave"
-        data={synthStations}
-        renderItem={it => <ShelfItem title={it.name} onEnterPress={() => mediaPlayer.play(it.url)} />}
-      />
+      <Shelf title="Synthwave">
+        {synthStations.map(it => (
+          <ShelfItem title={it.name} onPress={() => mediaPlayer.play(it.url)} width={120} height={120}>
+            <Image src="" width="100%" height="100%" />
+          </ShelfItem>
+        ))}
+      </Shelf>
     </div>
   )
 }
-
-const Shelf = ({ title, data, renderItem }) => {
-  const el = React.useRef()
-
-  return (
-    <div tabIndex={0}>
-      <h3 style={{ color: '#ccc' }}>{title}</h3>
-      <div style={{ display: 'flex', marginLeft: -10, alignItems: 'center' }}>{data.map(it => renderItem(it))}</div>
-    </div>
-  )
-}
-
-const ShelfItem = withFocusable()(({ title, focused }) => {
-  const size = focused ? { width: 160, height: 160 } : { width: 120, height: 120 }
-
-  return (
-    <div style={{ ...size, margin: 10, alignItems: 'center' }}>
-      <div style={{ backgroundColor: '#ccc', height: '100%', width: '100%' }} />
-      {focused && <span style={{ color: '#ccc', marginTop: 10 }}>{title}</span>}
-    </div>
-  )
-})
 
 const getStations = async genre => {
   const { data } = await axios.get(

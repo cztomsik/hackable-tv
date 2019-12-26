@@ -41,21 +41,44 @@ export const App = withFocusable()(({ setFocus }) => {
   })
 
   return (
-    <div
-      style={{
-        flex: 1,
-        backgroundColor: '#000',
-        padding: 50,
-        paddingLeft: 80,
-        paddingRight: 80
-      }}
-    >
-      <div>
-        <Route path="/" component={Home} />
-        <Route path="/:app/:rest*">
-          {({ app }) => <Router base={'/' + app}>{React.createElement(apps[app])}</Router>}
-        </Route>
+    <ErrorBoundary>
+      <div
+        style={{
+          flex: 1,
+          backgroundColor: '#666',
+          padding: 50,
+          paddingLeft: 80,
+          paddingRight: 80
+        }}
+      >
+        <div>
+          <Route path="/" component={Home} />
+          <Route path="/:app/:rest*">
+            {({ app }) => <Router base={'/' + app}>{React.createElement(apps[app])}</Router>}
+          </Route>
+        </div>
       </div>
-    </div>
+    </ErrorBoundary>
   )
 })
+
+class ErrorBoundary extends React.Component {
+  state = { error: null }
+
+  static getDerivedStateFromError(error) {
+    return { error }
+  }
+
+  render() {
+    if (this.state.error) {
+      return <div>
+        <h1>Error</h1>
+        <div>
+          {this.state.error.message}
+        </div>
+      </div>
+    }
+
+    return this.props.children
+  }
+}

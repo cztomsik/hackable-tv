@@ -5,7 +5,7 @@ import { Heading, Button, Modal } from '../ui'
 export const UIExamples = () => (
   <>
     <Route path="" component={Listing} />
-    <Route path="/:example">{({ example }) => React.createElement(exports[example])}</Route>
+    <Route path="/:page">{({ page }) => React.createElement(exports[page])}</Route>
   </>
 )
 
