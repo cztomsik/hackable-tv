@@ -4,11 +4,13 @@ import { Route, Router, useLocation } from 'wouter'
 
 import { Home } from './home/Home'
 import { Radio } from './radio/Radio'
+import { IAGames } from './ia-games/IAGames'
+import { FileManager } from './file-manager/FileManager'
 import { UIExamples } from './ui-examples/UIExamples'
 import { Settings } from './settings/Settings'
 
 // rendered in Home
-export const apps = { Radio, UIExamples, Settings }
+export const apps = { Radio, IAGames, FileManager, UIExamples, Settings }
 
 // TODO: rename
 export const App = withFocusable()(({ setFocus }) => {
@@ -70,13 +72,22 @@ class ErrorBoundary extends React.Component {
   }
 
   render() {
-    if (this.state.error) {
-      return <div>
-        <h1>Error</h1>
+    const { error } = this.state
+
+    if (error) {
+      const kind = error.name || error.constructor?.name || 'Unknown Error'
+
+      return (
         <div>
-          {this.state.error.message}
+          <div style={{ backgroundColor: '#f00' }}>
+            <h3 style={{ margin: 10, color: '#fff' }}>{kind}</h3>
+          </div>
+
+          <div style={{ margin: 10 }}>{error.message}</div>
+
+          <div style={{ margin: 10 }}>{error.stack}</div>
         </div>
-      </div>
+      )
     }
 
     return this.props.children

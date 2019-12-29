@@ -10,7 +10,7 @@ export const Shelf = ({ title, children }) => (
 
 // TODO: width/height could be implied by content
 // but we will need transform: scale() for that
-export const ShelfItem = ({ title, children, onPress, width, height }) => (
+export const ShelfItem = ({ title = '', children, width, height, onPress = undefined }) => (
   <Focusable onPress={onPress}>
     {focused => {
       return (

@@ -15,8 +15,8 @@ The whole project is based around [graffiti](https://github.com/cztomsik/graffit
 # BTW: it works on macos too, just brew install respective deps
 
 # you might need
-sudo apt install ffmpeg  # for radio
-sudo apt install dosbox  # for iarchive
+sudo apt install ffmpeg        # for radio
+sudo apt install dosbox unzip  # for iarchive
 
 git clone https://github.com/cztomsik/hackable-tv
 cd hackable-tv

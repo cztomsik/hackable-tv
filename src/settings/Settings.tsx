@@ -7,7 +7,7 @@ export const Settings = () => (
   <Route path="/:page*">{({ page }) => React.createElement(exports[page] || Listing)}</Route>
 )
 
-const Listing = () => (
+export const Listing = () => (
   <div>
     <Heading>Settings</Heading>
 

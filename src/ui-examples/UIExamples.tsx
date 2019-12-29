@@ -1,29 +1,84 @@
 import * as React from 'react'
 import { Route, Link } from 'wouter'
-import { Heading, Button, Modal } from '../ui'
+import { Heading, List, ListItem, Shelf, ShelfItem, Button, Modal, Image } from '../ui'
 
 export const UIExamples = () => (
-  <>
-    <Route path="" component={Listing} />
-    <Route path="/:page">{({ page }) => React.createElement(exports[page])}</Route>
-  </>
+  <Route path="/:page*">{({ page }) => React.createElement(exports[page] || Listing)}</Route>
 )
 
-const Listing = () => {
+export const Listing = () => {
   return (
     <div>
       <Heading>UI Examples</Heading>
 
-      {Object.keys(exports)
-        .slice(1)
-        .map(k => (
-          <Link to={`/${k}`}>
-            <Button>{k}</Button>
-          </Link>
-        ))}
+      <List>
+        {Object.keys(exports)
+          .slice(2)
+          .map(k => (
+            <Link to={`/${k}`}>
+              <ListItem>{k}</ListItem>
+            </Link>
+          ))}
+      </List>
     </div>
   )
 }
+
+export const WeatherApp = () => (
+  <div style={{ display: 'flex' }}>
+    <div style={{ flex: 1 }}>
+      <h4>Gotham City</h4>
+      <Heading>{new Date().toLocaleDateString()}</Heading>
+      <h1 style={{ fontSize: 100 }}>-44 Cels.</h1>
+    </div>
+
+    <List>
+      <ListItem>Tue</ListItem>
+      <ListItem>Wed</ListItem>
+      <ListItem>Thu</ListItem>
+      <ListItem>Fri</ListItem>
+      <ListItem>Sat</ListItem>
+      <ListItem>Sun</ListItem>
+      <ListItem>Mon</ListItem>
+    </List>
+  </div>
+)
+
+export const SportsApp = () => (
+  <div>
+    <Heading>Sports App</Heading>
+
+    <Shelf title="Picks">
+      <BigSportItem width={270} height={190} />
+      <BigSportItem width={270} height={190} />
+      <BigSportItem width={270} height={190} />
+    </Shelf>
+
+    <Shelf title="Football">
+      <QuickSportItem width={150} height={120} />
+      <QuickSportItem width={150} height={120} />
+      <QuickSportItem width={150} height={120} />
+      <QuickSportItem width={150} height={120} />
+    </Shelf>
+  </div>
+)
+
+const BigSportItem = ({ width, height, ...rest }) => (
+  <ShelfItem width={width} height={height} {...rest}>
+    <div style={{ width: '100%', height: 70, backgroundColor: '#fff' }}>
+      <span>NHL</span>
+      <span>TeamA at TeamB</span>
+      <span>Watch live</span>
+    </div>
+    <Image src="" width="100%" height={height - 20} />
+  </ShelfItem>
+)
+
+const QuickSportItem = ({ width, height, ...rest }) => (
+  <ShelfItem width={width} height={height} {...rest}>
+    <Image src="" width="100%" height={height - 20} />
+  </ShelfItem>
+)
 
 export const ModalExample = () => (
   <div>
@@ -60,7 +115,7 @@ export const ButtonExample = () => {
       <Button onPress={dec}>--</Button>
       <Button onPress={inc}>++</Button>
 
-      <Link to='/'>
+      <Link to="/">
         <Button>LinkButton</Button>
       </Link>
     </div>
