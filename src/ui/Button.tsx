@@ -1,36 +1,38 @@
 import * as React from 'react'
+import { useSpring, animated } from 'react-spring'
 import { Focusable } from '../ui'
 
+// TODO: fix in graffiti (maybe make raf native?)
+window.requestAnimationFrame = global['requestAnimationFrame']
+
 // TODO: box-shadow
-// TODO: text-align: center (graffiti) & remove unnecessary <span>
+// TODO: text-align: center (graffiti)
 export const Button = ({ children, href = '', onPress = () => href && location.assign(href) }) => (
   <Focusable onPress={onPress}>
     {focused => {
-      const s = focused ? enlarged : base
+      const spring = useSpring({
+        transform: focused ?'scale(1.05, 1.15)' :'scale(1, 1)',
+        config: { tension: 400 },
+      })
 
       return (
-        <div style={s.wrapper}>
-          <button style={s.button} onClick={onPress}>
-            <span style={s.text}>{children}</span>
-          </button>
-        </div>
+        <animated.button
+          style={{
+            display: 'flex',
+            margin: 8,
+            justifyContent: 'center',
+            fontSize: 24,
+            lineHeight: 50,
+
+            backgroundColor: focused ?'#fff' :'#444',
+            color: focused ? '#000' : '#ddd',
+  
+            ...spring
+          }}
+        >
+          {children}
+        </animated.button>
       )
     }}
   </Focusable>
 )
-
-const base = {
-  wrapper: { padding: 5, paddingLeft: 15, paddingRight: 15 },
-
-  button: { width: '100%', height: 50, justifyContent: 'center', backgroundColor: '#444' },
-
-  text: { alignSelf: 'center', fontSize: 24, color: '#ddd' }
-}
-
-const enlarged = {
-  wrapper: { ...base.wrapper, padding: 1, paddingLeft: 3, paddingRight: 3 },
-
-  button: { ...base.button, backgroundColor: '#fff' },
-
-  text: { ...base.text, fontSize: 28, color: '#000' }
-}

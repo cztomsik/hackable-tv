@@ -1,4 +1,5 @@
 import React = require('react')
+import { useSpring, animated } from 'react-spring'
 import { Focusable } from '../ui'
 
 export const Shelf = ({ title, children }) => (
@@ -13,18 +14,24 @@ export const Shelf = ({ title, children }) => (
 export const ShelfItem = ({ title = '', children, width, height, onPress = undefined }) => (
   <Focusable onPress={onPress}>
     {focused => {
+      const spring = useSpring({
+        transform: focused ?'scale(1.15)' :'scale(1)',
+        config: { tension: 400 },
+      })
+
       return (
-        <div
+        <animated.div
           style={{
-            width: focused ? width + 15 : width,
-            height: focused ? height + 15 : height,
-            margin: focused ? 0 : 15,
-            alignItems: 'center'
+            margin: 12,
+            width,
+            height,
+            alignItems: 'center',
+            ...spring,
           }}
         >
           {children}
           {focused && <span style={{ color: '#ccc', marginBottom: -15, top: 15 }}>{title}</span>}
-        </div>
+        </animated.div>
       )
     }}
   </Focusable>

@@ -46,7 +46,7 @@ export const App = withFocusable()(({ setFocus }) => {
     <ErrorBoundary>
       <div
         style={{
-          flex: 1,
+          minHeight: '100%',
           backgroundColor: '#666',
           padding: 50,
           paddingLeft: 80,
