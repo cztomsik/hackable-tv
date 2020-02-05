@@ -24,26 +24,6 @@ export const Listing = () => {
   )
 }
 
-export const WeatherApp = () => (
-  <div style={{ display: 'flex' }}>
-    <div style={{ flex: 1 }}>
-      <h4>Gotham City</h4>
-      <Heading>{new Date().toLocaleDateString()}</Heading>
-      <h1 style={{ fontSize: 100 }}>-44 Cels.</h1>
-    </div>
-
-    <List>
-      <ListItem>Tue</ListItem>
-      <ListItem>Wed</ListItem>
-      <ListItem>Thu</ListItem>
-      <ListItem>Fri</ListItem>
-      <ListItem>Sat</ListItem>
-      <ListItem>Sun</ListItem>
-      <ListItem>Mon</ListItem>
-    </List>
-  </div>
-)
-
 export const SportsApp = () => (
   <div>
     <Heading>Sports App</Heading>

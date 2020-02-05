@@ -4,11 +4,15 @@ import { readdir } from 'fs'
 import { Heading, List, ListItem } from '../ui'
 import { mediaPlayer } from '../mediaPlayer'
 
+// prevents ncc to bundle everything
+// https://github.com/zeit/ncc/issues/477
+const resolvePath = (path) => resolve(path)
+
 export const FileManager = () => {
-  const [path, setPath] = React.useState(__dirname)
+  const [path, setPath] = React.useState(process.cwd())
   const [files, setFiles] = React.useState(null)
 
-  const goTo = dir => setPath(resolve(`${path}/${dir}`))
+  const goTo = dir => setPath(resolvePath(`${path}/${dir}`))
 
   React.useEffect(() => {
     readdir(path, { withFileTypes: true }, (err, files) => setFiles(files))

@@ -18,6 +18,10 @@ export const Home = () => {
           </Link>
         ))}
       </Grid>
+
+      <div>
+        Use arrow keys to navigate, esc to go back.
+      </div>
     </div>
   )
 }

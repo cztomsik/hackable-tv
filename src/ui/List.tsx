@@ -6,8 +6,8 @@ export const List = ({ children }) => <div>{children}</div>
 
 // TODO: fix textnode padding (or make them real layout nodes)
 // so that wrapping <span> can be removed
-export const ListItem = ({ children, href = '', onPress = () => href && location.assign(href) }) => (
-  <Focusable onPress={onPress}>
+export const ListItem = ({ children, href = '', onFocus, onPress = () => href && location.assign(href) }) => (
+  <Focusable onFocus={onFocus} onPress={onPress}>
     {focused => {
       // TODO: transform
       const { marginLeft } = useSpring({ config: { tension: 400 }, to: { marginLeft: focused ? -15 : -5 } }) as any

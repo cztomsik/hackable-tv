@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "HOT=1 node -r ts-node/register/transpile-only -r graffiti/lib/register ./src/main"
+    "dev": "HOT=1 node -r ts-node/register/transpile-only -r graffiti/lib/register ./src/main",
+    "build": "ncc build ./src/main.tsx",
+    "start": "node -r graffiti/lib/register dist"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^12.12.11",
     "@types/react": "^16.9.16",
+    "@zeit/ncc": "^0.21.0",
     "ts-node": "^8.5.2",
     "typescript": "^3.7.3"
   }

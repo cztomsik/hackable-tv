@@ -4,13 +4,14 @@ import { Route, Router, useLocation } from 'wouter'
 
 import { Home } from './home/Home'
 import { Radio } from './radio/Radio'
+import { Weather } from './weather/Weather'
 import { IAGames } from './ia-games/IAGames'
 import { FileManager } from './file-manager/FileManager'
 import { UIExamples } from './ui-examples/UIExamples'
 import { Settings } from './settings/Settings'
 
 // rendered in Home
-export const apps = { Radio, IAGames, FileManager, UIExamples, Settings }
+export const apps = { Radio, Weather, FileManager, IAGames, UIExamples, Settings }
 
 // TODO: rename
 export const App = withFocusable()(({ setFocus }) => {
