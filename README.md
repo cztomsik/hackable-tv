@@ -34,6 +34,8 @@ Early PoC, feel free to open feature requests, ask questions and/or discuss the 
 - [x] home with "app" selection
 - [x] basic navigation
 - [x] play internet radios
+- [x] animations
+- [x] mouse support
 - [ ] now playing at Home
 - [ ] ?
 - [ ] manage samba, ssh, vnc
