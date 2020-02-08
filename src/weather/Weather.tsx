@@ -48,10 +48,6 @@ const LoadingIndicator = () => {
         await next({ width: '20%' })
         await next({ width: '90%' })
         await next({ width: '0%' })
-
-        // avoid infinite loop
-        // https://github.com/react-spring/react-spring/issues/930
-        await new Promise(resolve => setImmediate(resolve))
       }
     }
   })

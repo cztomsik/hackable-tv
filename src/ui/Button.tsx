@@ -2,9 +2,6 @@ import * as React from 'react'
 import { useSpring, animated } from 'react-spring'
 import { Focusable } from '../ui'
 
-// TODO: fix in graffiti (maybe make raf native?)
-window.requestAnimationFrame = global['requestAnimationFrame']
-
 // TODO: box-shadow
 // TODO: text-align: center (graffiti)
 export const Button = ({ children, href = '', onPress = () => href && location.assign(href) }) => (

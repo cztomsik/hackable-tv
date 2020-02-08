@@ -18,7 +18,7 @@
     "graffiti": "github:cztomsik/graffiti",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-spring": "^8.0.27",
+    "react-spring": "^9.0.0-beta.34",
     "wouter": "^2.4.0"
   },
   "devDependencies": {
