@@ -9,7 +9,7 @@ window.requestAnimationFrame = global['requestAnimationFrame']
 // TODO: text-align: center (graffiti)
 export const Button = ({ children, href = '', onPress = () => href && location.assign(href) }) => (
   <Focusable onPress={onPress}>
-    {focused => {
+    {({ focused, setFocus, focusKey }) => {
       const spring = useSpring({
         transform: focused ?'scale(1.05, 1.15)' :'scale(1, 1)',
         config: { tension: 400 },
@@ -29,6 +29,8 @@ export const Button = ({ children, href = '', onPress = () => href && location.a
   
             ...spring
           }}
+          onMouseEnter={() => setFocus(focusKey)}
+          onClick={onPress}
         >
           {children}
         </animated.button>

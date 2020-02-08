@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@noriginmedia/react-spatial-navigation": "^2.9.1",
-    "axios": "^0.19.0",
+    "axios": "^0.19.2",
     "glob": "^7.1.6",
     "graffiti": "github:cztomsik/graffiti",
     "react": "^16.12.0",

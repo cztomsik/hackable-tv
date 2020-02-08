@@ -13,7 +13,7 @@ export const Shelf = ({ title, children }) => (
 // but we will need transform: scale() for that
 export const ShelfItem = ({ title = '', children, width, height, onPress = undefined }) => (
   <Focusable onPress={onPress}>
-    {focused => {
+    {({ focused, setFocus, focusKey }) => {
       const spring = useSpring({
         transform: focused ?'scale(1.15)' :'scale(1)',
         config: { tension: 400 },
@@ -28,6 +28,7 @@ export const ShelfItem = ({ title = '', children, width, height, onPress = undef
             alignItems: 'center',
             ...spring,
           }}
+          onMouseEnter={() => setFocus(focusKey)}
         >
           {children}
           {focused && <span style={{ color: '#ccc', marginBottom: -15, top: 15 }}>{title}</span>}
