@@ -29,6 +29,7 @@ export const ShelfItem = ({ title = '', children, width, height, onPress = undef
             ...spring,
           }}
           onMouseEnter={() => setFocus(focusKey)}
+          onClick={onPress}
         >
           {children}
           {focused && <span style={{ color: '#ccc', marginBottom: -15, top: 15 }}>{title}</span>}
