@@ -1,5 +1,5 @@
 # Hackable TV
-![hackable-tv](https://user-images.githubusercontent.com/3526922/71194382-1ae1e880-228c-11ea-9c06-967138d4590f.gif)
+![hackable-tv](https://user-images.githubusercontent.com/3526922/74057963-4ad47f00-49e5-11ea-9e0d-b39c98f5fe1b.gif)
 
 A hobby project to explore if it is possible to do a platform like [Kodi](https://github.com/xbmc/xbmc) or [Android TV](https://en.wikipedia.org/wiki/Android_TV) which is:
 
