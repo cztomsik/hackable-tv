@@ -13,11 +13,12 @@
   "license": "ISC",
   "dependencies": {
     "@noriginmedia/react-spatial-navigation": "^2.9.1",
-    "axios": "^0.19.2",
     "glob": "^7.1.6",
     "graffiti": "github:cztomsik/graffiti",
+    "node-fetch": "^2.6.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-query": "^1.0.16",
     "react-spring": "^9.0.0-beta.34",
     "wouter": "^2.4.0"
   },
@@ -27,5 +28,8 @@
     "@zeit/ncc": "^0.21.0",
     "ts-node": "^8.5.2",
     "typescript": "^3.7.3"
+  },
+  "optionalDependencies": {
+    "glfw-dylib": "github:cztomsik/node-glfw-dylib"
   }
 }

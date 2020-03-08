@@ -1,4 +1,5 @@
 export * from './Heading'
+export * from './LoadingIndicator'
 export * from './Image'
 export * from './Focusable'
 export * from './Button'

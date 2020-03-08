@@ -1,6 +1,6 @@
 import * as React from 'react'
-import axios from 'axios'
-import { Heading, ListItem, List, Button, Image } from '../ui'
+import fetch from 'node-fetch'
+import { Heading, ListItem, List, Button, Image, LoadingIndicator } from '../ui'
 
 const places = [
   { name: 'Prague', id: 796597 },
@@ -23,37 +23,15 @@ export const Weather = () => {
 
       <div style={{ display: 'flex' }}>
         <List>
-          {places.map(p => <ListItem key={p.id} onFocus={() => setPlace(p)}>{p.name}</ListItem>)}
+          {places.map(p => (
+            <ListItem key={p.id} onFocus={() => setPlace(p)}>
+              {p.name}
+            </ListItem>
+          ))}
         </List>
 
-        <div style={{ flex: 1, padding: 20 }}>
-        {data ?<Detail {...data} /> :<LoadingIndicator />}
-        </div>
+        <div style={{ flex: 1, padding: 20 }}>{data ? <Detail {...data} /> : <LoadingIndicator />}</div>
       </div>
-    </div>
-  )
-}
-
-import { animated, useSpring } from 'react-spring'
-
-const LoadingIndicator = () => {
-  let run = true
-
-  React.useEffect(() => () => (run = false), [])
-
-  const props = useSpring({
-    from: { width: '0%' },
-    to: async next => {
-      while (run) {
-        await next({ width: '20%' })
-        await next({ width: '90%' })
-        await next({ width: '0%' })
-      }
-    }
-  })
-  return (
-    <div style={{ backgroundColor: '#0004' }}>
-      <animated.div style={{ ...props, height: 15, backgroundColor: '#0006' }} />
     </div>
   )
 }
@@ -81,16 +59,12 @@ const Metric = ({ header, value, unit }) => (
 )
 
 const useWeather = placeId => {
-
-
   const [data, setData] = React.useState(null)
 
   const getData = async () => {
     const {
-      data: {
-        consolidated_weather: [first]
-      }
-    } = await axios.get(`https://www.metaweather.com/api/location/${placeId}`)
+      consolidated_weather: [first]
+    } = await fetch(`https://www.metaweather.com/api/location/${placeId}`).then(r => r.json())
 
     return {
       state: first.weather_state_name,
@@ -110,7 +84,7 @@ const useWeather = placeId => {
       }
     })
 
-    return () => cancelled = true
+    return () => (cancelled = true)
   }, [placeId])
 
   return { data }

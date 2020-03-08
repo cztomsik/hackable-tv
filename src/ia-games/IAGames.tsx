@@ -1,7 +1,8 @@
 import * as React from 'react'
-import axios from 'axios'
+import fetch from 'node-fetch'
 import { Route, Link } from 'wouter'
-import { Heading, ListItem, List, Button, Image } from '../ui'
+import { Heading, ListItem, List, Button, Image, LoadingIndicator } from '../ui'
+import { useQuery } from 'react-query'
 
 // TODO
 const favorites = [
@@ -46,60 +47,68 @@ export const IAGames = () => (
 )
 
 export const Listing = () => {
-  // TODO: load once only
-  const [games, setGames] = React.useState(null)
-
-  React.useEffect(() => {
-    getGames().then(setGames)
-  }, [])
+  const { status, data } = useQuery('todos', getGames)
 
   return (
     <div>
       <Heading>Internet Archive Games</Heading>
 
-      <List>
-        {games &&
-          games.map(g => (
-            <Link to={`/${g.identifier}`}>
-              <ListItem key={g.identifier}>{g.title}</ListItem>
-            </Link>
-          ))}
-      </List>
+      {status === 'loading' ? (
+        <LoadingIndicator />
+      ) : (
+        <List>
+          {data &&
+            data.map(g => (
+              <Link to={`/${g.identifier}`}>
+                <ListItem key={g.identifier}>{g.title}</ListItem>
+              </Link>
+            ))}
+        </List>
+      )}
 
       <Button>Dummy button to catch focus</Button>
     </div>
   )
 }
 
-// TODO: load detail (& cache it; optimistic-ui)
-export const Detail = ({ params }) => (
-  <div style={{ display: 'flex' }}>
-    <Image src={`https://archive.org/services/img/${params.id}`} width={400} height={200} />
+export const Detail = ({ params: { id } }) => {
+  const { status, data } = useQuery(`game-${id}`, () => getGameDetail(id))
 
-    <div style={{ padding: 20 }}>
-      <Heading>{params.id.slice(0, 20)}</Heading>
+  return status === 'loading' ? (
+    <LoadingIndicator />
+  ) : (
+    <div style={{ display: 'flex' }}>
+      <Image src={`https://archive.org/services/img/${id}`} width={400} height={200} />
 
-      <div style={{ color: '#ddd', fontSize: 24, lineHeight: 28 }}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non delectus nulla quod dignissimos quisquam
-        repudiandae nesciunt molestiae cumque culpa, neque iusto nam unde necessitatibus reprehenderit porro molestias
-        dolore vitae voluptas!
+      <div style={{ padding: 20 }}>
+        <Heading>{data.metadata.title}</Heading>
+
+        <div style={{ color: '#ddd', fontSize: 24, lineHeight: 28 }}>{data.metadata.description}</div>
+
+        <div>
+          {JSON.stringify(
+            data.files.map(f => f.name),
+            null,
+            2
+          )}
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 const getGames = async ({ rows = 10 } = {}) => {
-  const params = {
+  const params = new URLSearchParams({
     output: 'json',
     q: 'collection:(softwarelibrary_msdos_shareware) format:(zip)',
     sort: 'downloads desc',
-    rows,
-    fl: ['identifier', 'title', 'description']
-  }
+    rows: '' + rows,
+    fl: ['identifier', 'title', 'description'].join(',')
+  })
 
-  const { data } = await axios.get(`https://archive.org/advancedsearch.php`, { params })
-
-  console.log(data?.response?.docs)
+  const data = await fetch(`https://archive.org/advancedsearch.php?${params}`).then(r => r.json())
 
   return data?.response?.docs
 }
+
+const getGameDetail = async id => fetch(`https://archive.org/metadata/${id}`).then(r => r.json())

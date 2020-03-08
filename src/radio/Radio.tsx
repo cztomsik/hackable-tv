@@ -1,4 +1,5 @@
 import * as React from 'react'
+import fetch from 'node-fetch'
 import { Heading, Shelf, ShelfItem, Image } from '../ui'
 import { mediaPlayer } from '../mediaPlayer'
 import axios from 'axios'
@@ -52,10 +53,7 @@ export const Radio = () => {
   )
 }
 
-const getStations = async genre => {
-  const { data } = await axios.get(
+const getStations = async genre =>
+  fetch(
     `http://www.radio-browser.info/webservice/json/stations/search?tag=${genre}&limit=6&order=votes&reverse=true`
-  )
-
-  return data.map(({ name, url }) => ({ name, url }))
-}
+  ).then(r => r.json())
