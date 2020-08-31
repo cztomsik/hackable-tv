@@ -1,6 +1,16 @@
 import * as React from 'react'
 import { useSpring, animated } from 'react-spring'
+import { css } from 'goober'
 import { Focusable } from '../ui'
+import { shadow } from './theme'
+
+const itemStyle = css`
+  display: flex;
+  align-ttems: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+`
 
 export const List = ({ children }) => <div>{children}</div>
 
@@ -14,15 +24,8 @@ export const ListItem = ({ children, href = '', onFocus = undefined, onPress = (
 
       return (
         <animated.div
-          style={{
-            marginTop: 5,
-            marginBottom: 5,
-            marginLeft,
-            padding: 10,
-            backgroundColor: focused ?'#fff' :undefined,
-            display: 'flex',
-            alignItems: 'center'
-          }}
+          className={itemStyle}
+          style={{ marginLeft, backgroundColor: focused && '#fff', boxShadow: focused && shadow }}
           onMouseEnter={() => setFocus(focusKey)}
           onClick={onPress}
         >

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { styled } from 'goober'
 import { Route, Link } from 'wouter'
-import { Heading, ListItem, List, Image, LoadingIndicator } from '../ui'
+import { Stack, Row, Heading, ListItem, List, Image, LoadingIndicator } from '../ui'
 import { useQuery } from 'react-query'
 
 export const IAGames = () => (
@@ -17,7 +17,7 @@ export const Listing = () => {
   const { isLoading, data } = useQuery('games', fetchGames)
 
   return (
-    <div>
+    <Stack>
       <Heading>Internet Archive Games</Heading>
 
       {isLoading ? (
@@ -31,7 +31,7 @@ export const Listing = () => {
           ))}
         </List>
       )}
-    </div>
+    </Stack>
   )
 }
 
@@ -41,10 +41,10 @@ export const Detail = ({ params: { id } }: any) => {
   return isLoading ? (
     <LoadingIndicator />
   ) : (
-    <div style={{ display: 'flex' }}>
-      <Image src={`https://archive.org/services/img/${id}`} width={400} height={200} />
+    <Row>
+      <Image src={`https://archive.org/services/img/${id}`} width={400} height={300} />
 
-      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <Stack flex={1} style={{ marginLeft: 50 }}>
         <Heading>{data.metadata.title}</Heading>
         <Description>{stripHtml(data.metadata.description ?? 'No description found')}</Description>
 
@@ -55,8 +55,8 @@ export const Detail = ({ params: { id } }: any) => {
             2
           )}
         </pre>
-      </div>
-    </div>
+      </Stack>
+    </Row>
   )
 }
 

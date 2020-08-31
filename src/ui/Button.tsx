@@ -2,6 +2,7 @@ import * as React from 'react'
 import { css } from 'goober'
 import { useSpring, animated } from 'react-spring'
 import { Focusable } from '../ui'
+import { radii, shadow } from './theme'
 
 // text-align is not enough (not even in browser)
 const baseStyle = css`
@@ -13,6 +14,8 @@ const baseStyle = css`
   lineHeight: 50px;
   text-align: center;
   justify-content: center;
+  border-radius: ${radii};
+  box-shadow: ${shadow};
 `
 
 // TODO: box-shadow

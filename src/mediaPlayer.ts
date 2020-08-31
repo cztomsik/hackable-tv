@@ -1,4 +1,4 @@
-import * as cp from 'child_process'
+//import * as cp from 'child_process'
 
 // TODO: auto-download from https://ffbinaries.com/?
 // TODO: SIGSTOP & SIGCONT can work as pause
@@ -23,11 +23,11 @@ export const mediaPlayer = {
       source
     ]
 
-    const p = cp.spawn('ffplay', args, { stdio: ['pipe', 'ignore', 'ignore'] })
+    //const p = cp.spawn('ffplay', args, { stdio: ['pipe', 'ignore', 'ignore'] })
 
-    this._proc = p
+    //this._proc = p
   },
 }
 
 // prevent zombies
-process.on('exit', () => mediaPlayer._proc && mediaPlayer._proc.kill())
+//process.on('exit', () => mediaPlayer._proc && mediaPlayer._proc.kill())

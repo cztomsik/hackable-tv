@@ -49,7 +49,7 @@ export const App = withFocusable()(({ setFocus }) => {
       <div
         style={{
           minHeight: '100%',
-          backgroundColor: '#666',
+          backgroundColor: '#877',
           padding: 50,
           paddingLeft: 80,
           paddingRight: 80

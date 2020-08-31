@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useSpring, animated } from 'react-spring'
 import { Focusable } from '../ui'
+import { shadow } from './theme'
 
 export const Shelf = ({ title, children }) => (
   <div style={{ marginTop: 15, marginBottom: 15 }}>
@@ -26,13 +27,15 @@ export const ShelfItem = ({ title = '', children, width, height, onPress = undef
             width,
             height,
             alignItems: 'center',
+            zIndex: focused && 100,
+            boxShadow: focused && shadow,
             ...spring,
           }}
           onMouseEnter={() => setFocus(focusKey)}
           onClick={onPress}
         >
           {children}
-          {focused && <span style={{ color: '#ccc', marginBottom: -15, top: 15 }}>{title}</span>}
+          {focused && <div style={{ color: '#ccc', textAlign: 'center', marginBottom: -15, top: 15 }}>{title}</div>}
         </animated.div>
       )
     }}

@@ -1,3 +1,6 @@
+export const FileManager = () => 'TODO'
+
+/*
 import * as React from 'react'
 import { resolve, basename, extname } from 'path'
 import { readdir } from 'fs'
@@ -46,3 +49,4 @@ const open = f => {
       return mediaPlayer.play(f)
   }
 }
+*/
