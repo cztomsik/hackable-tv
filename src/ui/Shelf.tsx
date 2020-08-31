@@ -1,4 +1,4 @@
-import React = require('react')
+import * as React from 'react'
 import { useSpring, animated } from 'react-spring'
 import { Focusable } from '../ui'
 

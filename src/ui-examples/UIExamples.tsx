@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Route, Link } from 'wouter'
-import { Heading, List, ListItem, Shelf, ShelfItem, Button, Modal, Image } from '../ui'
+import { Heading, List, ListItem, Shelf, ShelfItem, Button, Modal, Image, Stack, Row } from '../ui'
 
 export const UIExamples = () => (
-  <Route path="/:page*">{({ page }) => React.createElement(exports[page] || Listing)}</Route>
+  <Route path="/:page*">{({ page }) => React.createElement(EXAMPLES[page] || Listing)}</Route>
 )
 
 export const Listing = () => {
@@ -12,13 +12,11 @@ export const Listing = () => {
       <Heading>UI Examples</Heading>
 
       <List>
-        {Object.keys(exports)
-          .slice(2)
-          .map(k => (
-            <Link to={`/${k}`}>
-              <ListItem>{k}</ListItem>
-            </Link>
-          ))}
+        {Object.keys(EXAMPLES).map(k => (
+          <Link to={`/${k}`}>
+            <ListItem>{k}</ListItem>
+          </Link>
+        ))}
       </List>
     </div>
   )
@@ -65,12 +63,12 @@ export const ModalExample = () => (
     <Modal>
       <Heading>Foo</Heading>
 
-      <div style={{ width: 250 }}>
+      <Stack style={{ width: 250 }}>
         <Button>Do it</Button>
         <Button>Cancel</Button>
         <Button>Foo</Button>
         <Button>Bar</Button>
-      </div>
+      </Stack>
     </Modal>
   </div>
 )
@@ -92,8 +90,10 @@ export const ButtonExample = () => {
     <div>
       <Heading>{count}</Heading>
 
-      <Button onPress={dec}>--</Button>
-      <Button onPress={inc}>++</Button>
+      <Row style={{ width: 180 }}>
+        <Button onPress={inc}>++</Button>
+        <Button onPress={dec}>--</Button>
+      </Row>
 
       <Link to="/">
         <Button>LinkButton</Button>
@@ -101,3 +101,5 @@ export const ButtonExample = () => {
     </div>
   )
 }
+
+const EXAMPLES = { SportsApp, ModalExample, BasicExample, ButtonExample }

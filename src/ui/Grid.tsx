@@ -1,8 +1,9 @@
 import * as React from 'react'
+import { Stack } from './Stack'
 
 export const Grid = ({ children }) => (
-  <div>
+  <Stack>
     <span>TODO: Grid</span>
     {children}
-  </div>
+  </Stack>
 )

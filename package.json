@@ -2,34 +2,27 @@
   "name": "hackable-tv",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "HOT=1 node -r ts-node/register/transpile-only -r graffiti/lib/register ./src/main",
-    "build": "ncc build ./src/main.tsx",
-    "start": "node -r graffiti/lib/register dist"
+    "dev": "vite",
+    "build": "vite build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@noriginmedia/react-spatial-navigation": "^2.9.1",
-    "glob": "^7.1.6",
-    "graffiti": "github:cztomsik/graffiti",
-    "node-fetch": "^2.6.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-query": "^1.0.16",
-    "react-spring": "^9.0.0-beta.34",
-    "wouter": "^2.4.0"
+    "@noriginmedia/react-spatial-navigation": "^2.12.5",
+    "@pika/react": "^16.13.1",
+    "@pika/react-dom": "^16.13.1",
+    "goober": "^2.0.5",
+    "react-query": "^2.12.1",
+    "react-spring": "9.0.0-rc.3",
+    "wouter": "^2.5.1"
   },
   "devDependencies": {
-    "@types/node": "^12.12.11",
-    "@types/react": "^16.9.16",
-    "@zeit/ncc": "^0.21.0",
-    "ts-node": "^8.5.2",
-    "typescript": "^3.7.3"
-  },
-  "optionalDependencies": {
-    "glfw-dylib": "github:cztomsik/node-glfw-dylib"
+    "@types/node": "^14.6.2",
+    "@types/react": "^16.9.48",
+    "typescript": "^4.0.2",
+    "vite": "^1.0.0-rc.1",
+    "vite-plugin-react": "^3.0.0"
   }
 }

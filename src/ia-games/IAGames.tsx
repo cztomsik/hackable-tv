@@ -1,43 +1,10 @@
+// TODO: launch (can be external command)
+
 import * as React from 'react'
-import fetch from 'node-fetch'
+import { styled } from 'goober'
 import { Route, Link } from 'wouter'
-import { Heading, ListItem, List, Button, Image, LoadingIndicator } from '../ui'
+import { Heading, ListItem, List, Image, LoadingIndicator } from '../ui'
 import { useQuery } from 'react-query'
-
-// TODO
-const favorites = [
-  {
-    identifier: 'msdos_sdramp_shareware',
-    title: 'Alien Rampage',
-    description: 'Alien Rampage v1.11 - Shareware'
-  },
-
-  {
-    identifier: 'msdos_jazzxmas_shareware',
-    title: 'Jazz Jackrabbit Christmas Edition',
-    description:
-      'This is an all-new CHRISTMAS EDITION of Jazz Jackrabbit, the breakthrough PC thriller that won Best Arcade Game of the Year!'
-  },
-
-  {
-    identifier: 'msdos_jjxmas95_shareware',
-    title: 'Jazz Jackrabbit Holiday Hare 1995',
-    description:
-      'From Epic MegaGames comes the All-New 1995 Holiday Hare. This holiday version of the award winning Jazz Jackrabbit features new levels and music for your holiday game playing pleasure!'
-  },
-
-  {
-    identifier: 'msdos_Quake106_shareware',
-    title: 'Quake',
-    description: 'Famous first-person shooter game from id Software.'
-  },
-
-  {
-    identifier: 'TETRIS.EXE',
-    title: 'Tetris',
-    description: 'A Tetris clone written in QBasic in the year 2000 by Michael Fogleman.'
-  }
-]
 
 export const IAGames = () => (
   <>
@@ -47,63 +14,70 @@ export const IAGames = () => (
 )
 
 export const Listing = () => {
-  const { status, data } = useQuery('todos', getGames)
+  const { isLoading, data } = useQuery('games', fetchGames)
 
   return (
     <div>
       <Heading>Internet Archive Games</Heading>
 
-      {status === 'loading' ? (
+      {isLoading ? (
         <LoadingIndicator />
       ) : (
         <List>
-          {data &&
-            data.map(g => (
-              <Link to={`/${g.identifier}`}>
-                <ListItem key={g.identifier}>{g.title}</ListItem>
-              </Link>
-            ))}
+          {data?.map(g => (
+            <Link to={`/${g.identifier}`}>
+              <ListItem key={g.identifier}>{g.title}</ListItem>
+            </Link>
+          ))}
         </List>
       )}
-
-      <Button>Dummy button to catch focus</Button>
     </div>
   )
 }
 
-export const Detail = ({ params: { id } }) => {
-  const { status, data } = useQuery(`game-${id}`, () => getGameDetail(id))
+export const Detail = ({ params: { id } }: any) => {
+  const { isLoading, data } = useQuery(['game', id], fetchGameDetail)
 
-  return status === 'loading' ? (
+  return isLoading ? (
     <LoadingIndicator />
   ) : (
     <div style={{ display: 'flex' }}>
       <Image src={`https://archive.org/services/img/${id}`} width={400} height={200} />
 
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', flex: 1 }}>
         <Heading>{data.metadata.title}</Heading>
+        <Description>{stripHtml(data.metadata.description ?? 'No description found')}</Description>
 
-        <div style={{ color: '#ddd', fontSize: 24, lineHeight: 28 }}>{data.metadata.description}</div>
-
-        <div>
+        <pre>
           {JSON.stringify(
             data.files.map(f => f.name),
             null,
             2
           )}
-        </div>
+        </pre>
       </div>
     </div>
   )
 }
 
-const getGames = async ({ rows = 10 } = {}) => {
+// TODO: shared UI component
+const Description = styled('div')`
+  color: #ddd;
+  font-size: 24px;
+  line-height: 32px;
+`
+
+const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '')
+
+// data fetching
+
+const fetchGames = async ({ rows = 10 } = {}) => {
   const params = new URLSearchParams({
     output: 'json',
     q: 'collection:(softwarelibrary_msdos_shareware) format:(zip)',
     sort: 'downloads desc',
     rows: '' + rows,
-    fl: ['identifier', 'title', 'description'].join(',')
+    fl: ['identifier', 'title', 'description'].join(','),
   })
 
   const data = await fetch(`https://archive.org/advancedsearch.php?${params}`).then(r => r.json())
@@ -111,4 +85,4 @@ const getGames = async ({ rows = 10 } = {}) => {
   return data?.response?.docs
 }
 
-const getGameDetail = async id => fetch(`https://archive.org/metadata/${id}`).then(r => r.json())
+const fetchGameDetail = async (key, id) => fetch(`https://archive.org/metadata/${id}`).then(r => r.json())

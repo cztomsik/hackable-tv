@@ -1,8 +1,6 @@
 import * as React from 'react'
-import fetch from 'node-fetch'
 import { Heading, Shelf, ShelfItem, Image } from '../ui'
 import { mediaPlayer } from '../mediaPlayer'
-import axios from 'axios'
 
 const favorites = [
   { name: 'Synthetic FM', url: 'https://mediaserv38.live-streams.nl:18040/live' },
@@ -10,7 +8,9 @@ const favorites = [
   { name: 'Evropa2', url: 'https://icecast3.play.cz/evropa2-128.mp3' },
   { name: 'Kiss', url: 'https://icecast4.play.cz/kiss128.mp3' },
   { name: 'BEAT Radio', url: 'http://icecast1.play.cz/beat64.mp3' },
-  { name: 'ROCK Radio', url: 'http://ice.abradio.cz:8000/sumava128.mp3' }
+  { name: 'ROCK Radio', url: 'http://ice.abradio.cz:8000/sumava128.mp3' },
+  { name: '8bit FM', url: 'http://8bit.fm:8000/live' },
+  { name: 'Deutschlandfunk Nova', url: 'http://dradio-edge-2092.dus-lg.cdn.addradio.net/dradio/nova/live/ogg/104/' }
 ]
 
 export const Radio = () => {
@@ -55,5 +55,5 @@ export const Radio = () => {
 
 const getStations = async genre =>
   fetch(
-    `http://www.radio-browser.info/webservice/json/stations/search?tag=${genre}&limit=6&order=votes&reverse=true`
+    `/api/radio/stations/bytagexact/${genre}?limit=6&order=votes&reverse=true`
   ).then(r => r.json())

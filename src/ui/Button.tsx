@@ -1,9 +1,21 @@
 import * as React from 'react'
+import { css } from 'goober'
 import { useSpring, animated } from 'react-spring'
 import { Focusable } from '../ui'
 
+// text-align is not enough (not even in browser)
+const baseStyle = css`
+  display: flex;
+  border: 0;
+  padding: 0 20px;
+  margin: 8px;
+  fontSize: 24px;
+  lineHeight: 50px;
+  text-align: center;
+  justify-content: center;
+`
+
 // TODO: box-shadow
-// TODO: text-align: center (graffiti)
 export const Button = ({ children, href = '', onPress = () => href && location.assign(href) }) => (
   <Focusable onPress={onPress}>
     {({ focused, setFocus, focusKey }) => {
@@ -14,13 +26,8 @@ export const Button = ({ children, href = '', onPress = () => href && location.a
 
       return (
         <animated.button
+          className={baseStyle}
           style={{
-            display: 'flex',
-            margin: 8,
-            justifyContent: 'center',
-            fontSize: 24,
-            lineHeight: 50,
-
             backgroundColor: focused ?'#fff' :'#444',
             color: focused ? '#000' : '#ddd',
   

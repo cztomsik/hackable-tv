@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { withFocusable } from '@noriginmedia/react-spatial-navigation'
+import { withFocusable } from 'https://jspm.dev/@noriginmedia/react-spatial-navigation@2.12.5'
 
 // this is ew (turning HoC to render comp)
 // TODO: make own focusable comp
