@@ -1,5 +1,5 @@
 // @ts-check
-const reactPlugin = require('vite-plugin-react')
+const reactPlugin = require('@vitejs/plugin-react-refresh')
 
 /**
  * @type { import('vite').UserConfig }
